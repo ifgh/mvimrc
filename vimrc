@@ -43,7 +43,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
 Bundle 'othree/html5.vim'
 Bundle 'nono/jquery.vim'
 " EasyMotion : Vim motions on speed! http://www.vim.org/scripts/script.php?script_id=3526
@@ -56,6 +55,9 @@ Bundle 'vivien/vim-addon-linux-coding-style'
 Bundle 'vim-scripts/netrw.vim'
 " Translate SNMP OIDs from within Vim
 Bundle 'vim-scripts/mib_translator'
+" git integration
+Bundle 'tpope/vim-fugitive'
+Bundle 'gregsexton/gitv'
 
 filetype plugin indent on
 
