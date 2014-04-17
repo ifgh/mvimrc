@@ -25,7 +25,8 @@ Bundle 'wesleyche/SrcExpl'
 Bundle 'chazy/cscope_maps'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'vim-scripts/TaskList.vim'
 " Elegant buffer explore
 Bundle 'fholgado/minibufexpl.vim'
@@ -58,6 +59,12 @@ Bundle 'vim-scripts/mib_translator'
 " git integration
 Bundle 'tpope/vim-fugitive'
 Bundle 'gregsexton/gitv'
+Bundle 'airblade/vim-gitgutter'
+
+Bundle 'edkolev/promptline.vim'
+Bundle 'mhinz/vim-tmuxify'
+Bundle 'kien/ctrlp.vim'
+Bundle 'terryma/vim-expand-region'
 
 filetype plugin indent on
 
@@ -65,7 +72,7 @@ syntax on
 filetype on
 filetype plugin on
 
-colorscheme koehler
+colorscheme vividchalk_eason
 "set guifont=Source\ Code\ Pro\ 13
 
 " File encoding
@@ -84,7 +91,8 @@ set noreadonly
 set foldlevel=99
 set noeb vb t_vb= "disable beep and flash
 
-set wildignore=*.o,*~,*.pyc,*.pyo,*.so,*.bak,*.exe,*.obj
+set wildignore=/tmp/*,*.o,*~,*.pyc,*.pyo,*.so,*.bak,*.exe,*.obj,*.swp,*.zip
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 map <c-j> <c-w>j
 map <c-k> <c-w>k
@@ -99,6 +107,10 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+
+" autocmd for fugitive
+autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "autocmd BufWritePost *.c,*.py,*.cc silent! !~/bin/cc.sh &
 "au FileType javascript call JavaScriptFold()
@@ -136,6 +148,8 @@ map <C-z> <ESC>:call CloseTab()<CR>
 
 "Json formatter
 map <Leader>j !python -m json.tool<CR>
+
+map q: :q
 
 " SrcExpl
 nmap <F8> :SrcExplToggle<CR> 
@@ -205,3 +219,16 @@ endfunction
 " Misc
 let g:pyflakes_use_quickfix = 0
 let g:pep8_map='<leader>8'
+
+" vim-ariline
+let g:airline#extensions#tabline#enabled = 1
+
+" ctrlp
+let g:ctrlp_map='<c-l>'
+let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+" let g:ctrlp_use_caching = 0
+
+" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
