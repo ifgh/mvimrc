@@ -1,3 +1,5 @@
+![tmux+eclim](https://farm4.staticflickr.com/3913/14701040171_fef78debe0_c.jpg)
+
 ##Setup Vim plugin via [Vundle](https://github.com/gmarik/Vundle.vim)
 ```sh
 $> git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
