@@ -86,6 +86,7 @@ Bundle 'terryma/vim-expand-region'
 Bundle 'myusuf3/numbers.vim'
 " Markdown
 Bundle 'tpope/vim-markdown'
+Bundle 'suan/vim-instant-markdown'
 
 " ======================== Colorscheme ===================================== ""
 Bundle 'junegunn/seoul256.vim'
@@ -317,6 +318,10 @@ let g:pydiction_location = '/Users/easonlee/.vim/bundle/Pydiction/complete-dict'
 
 " YouCimpleteMe
 let g:ycm_global_ycm_extra_conf='/Users/easonlee/.vim/bundle//YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+" vim-instant-markdown
+let g:instant_markdown_slow = 1
+let g:instant_markdown_autostart = 0
 
 " The Silver Searcher
 if executable('ag')
