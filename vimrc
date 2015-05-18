@@ -151,15 +151,16 @@ autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/n
 autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 " Markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd FileType markdown set autoindent expandtab sta shiftwidth=4 softtabstop=4 tabstop=4 textwidth=119 omnifunc=pythoncomplete#Complete foldmethod=indent
 
 " Close Preview window automatically
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Close location list automatically after select
-autocmd FileType qf nmap <buffer> <cr> <cr>:lcl<cr>
+autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
 " Remap to close location list by press shortcut 'q'
-autocmd FileType qf nnoremap <buffer> <silent> q :lcl<cr>
+autocmd FileType qf nnoremap <buffer> <silent> q :cclose<cr>
 
 " autocmd for fugitive
 autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
@@ -321,7 +322,7 @@ let g:ycm_global_ycm_extra_conf='/Users/easonlee/.vim/bundle//YouCompleteMe/thir
 
 " vim-instant-markdown
 let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
+let g:instant_markdown_autostart = 1
 
 " The Silver Searcher
 if executable('ag')
