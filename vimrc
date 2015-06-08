@@ -148,6 +148,9 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
+autocmd Filetype sh set syntax=sh
+autocmd BufRead,BufNewFile *.sh let g:is_bash=1
+
 autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 " Markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
