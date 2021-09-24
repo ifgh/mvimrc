@@ -1,12 +1,17 @@
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+Bundle 'fatih/vim-go'
+" Bundle 'maralla/completor.vim'
 Bundle 'gmarik/vundle'
+" ===== swift =====
+Bundle 'toyamarinyon/vim-swift'
 " ===== Python Specific =====
 " Flake8 plugin for Vim
 Bundle 'nvie/vim-flake8'
 " PyFlakes on-the-fly Python code checking 
-Bundle 'kevinw/pyflakes-vim'
+" Bundle 'kevinw/pyflakes-vim'
+Bundle 'hynek/vim-python-pep8-indent'
 " pydoc integration for the best text editor on earth http://www.vim.org/scripts/script.php?script_id=910
 Bundle 'fs111/pydoc.vim'
 " Runs your UnitTests with py.test displaying red/green bars and errors
@@ -15,26 +20,30 @@ Bundle 'alfredodeza/pytest.vim'
 Bundle 'vim-scripts/Pydiction'
 Bundle 'tshirtman/vim-cython'
 " ===========================
+" ===== google go ====
+" Bundle 'fatih/vim-go'
 " ===== C/C++ Specific =====
 Bundle 'vim-scripts/c.vim'
 Bundle 'mbbill/echofunc'
-"Bundle 'scrooloose/syntastic' " It will slowdown performance of mac vim, just turn it off so far.
+" Bundle 'scrooloose/syntastic' " It will slowdown performance of mac vim, just turn it off so far.
 " ===========================
 " ===== Java Specific =====
 " Bundle 'adragomir/javacomplete'
 " ==========================
 " ===== Source Coding Utils=
-Bundle 'sontek/rope-vim'
+" Bundle 'sontek/rope-vim'
+" Bundle 'python-rope/ropevim'
 Bundle 'vim-scripts/cscope.vim'
 Bundle 'vim-scripts/Auto-Pairs'
 Bundle 'vim-scripts/The-NERD-tree'
 Bundle 'wesleyche/SrcExpl'
 Bundle 'chazy/cscope_maps'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'ycm-core/YouCompleteMe'
 Bundle 'majutsushi/tagbar'
-"Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
 Bundle 'Lokaltog/powerline-fonts'
 Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 Bundle 'vim-scripts/TaskList.vim'
 " Elegant buffer explore
 Bundle 'fholgado/minibufexpl.vim'
@@ -59,7 +68,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'othree/html5.vim'
 Bundle 'nono/jquery.vim'
 " EasyMotion : Vim motions on speed! http://www.vim.org/scripts/script.php?script_id=3526
-"Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-easymotion'
 " easily search for, substitute, and abbreviate multiple variants of a word
 Bundle 'tpope/vim-abolish'
 " Vim plugin to respect the Linux kernel coding style
@@ -87,6 +96,14 @@ Bundle 'myusuf3/numbers.vim'
 " Markdown
 Bundle 'tpope/vim-markdown'
 Bundle 'suan/vim-instant-markdown'
+" CSV file
+" Bundle 'chrisbra/csv.vim'
+" less file
+Bundle 'groenewege/vim-less'
+" reveal-vim
+Bundle 'blindFS/vim-reveal'
+" ebnf.vim
+Bundle 'vim-scripts/ebnf.vim'
 
 " ======================== Colorscheme ===================================== ""
 Bundle 'junegunn/seoul256.vim'
@@ -129,6 +146,8 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+autocmd FileType go set autoindent expandtab sta shiftwidth=4 softtabstop=4 tabstop=4 textwidth=119 foldmethod=indent
+
 autocmd FileType python,cython set autoindent expandtab sta shiftwidth=4 softtabstop=4 tabstop=4 textwidth=119 omnifunc=pythoncomplete#Complete foldmethod=indent
 autocmd FileType python,cython colorscheme jellybeans
 
@@ -141,7 +160,7 @@ autocmd FileType cpp,c colorscheme easonvim
 autocmd FileType java set autoindent expandtab sta shiftwidth=4 softtabstop=4 tabstop=4 foldmethod=indent
 " Java Autocomplete after dot .
 autocmd FileType java inoremap <buffer> . .<C-X><C-O><C-P>
-autocmd FileType java colorscheme seoul256
+autocmd FileType java colorscheme desert256
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -166,8 +185,9 @@ autocmd FileType qf nmap <buffer> <cr> <cr>:cclose<cr>
 autocmd FileType qf nnoremap <buffer> <silent> q :cclose<cr>
 
 " autocmd for fugitive
-autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
-autocmd BufReadPost fugitive://* set bufhidden=delete
+" autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
+" autocmd User fugitive if get(b:, 'fugitive_type', '') =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
+" autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "autocmd BufWritePost *.c,*.py,*.cc silent! !~/bin/cc.sh &
 "au FileType javascript call JavaScriptFold()
@@ -180,13 +200,13 @@ if !empty(glob("tags"))
     nnoremap <c-t> :po<CR>
     vnoremap <c-t> :po<CR>
 else
-    " Java Search
+    " Java Search integrated with eclim
     autocmd Filetype java nnoremap <c-]> :JavaSearch -x declarations %<CR>
     autocmd Filetype java vnoremap <c-]> :JavaSearch -x declarations %<CR>
     autocmd Filetype java nnoremap <c-\>s :JavaSearch -x all %<CR>
     autocmd Filetype java vnoremap <c-\>s :JavaSearch -x all %<CR>
 
-    " Python Search
+    " Python Search integrated with eclim
     autocmd Filetype python nnoremap <c-]> :PythonSearchContext<CR>
     autocmd Filetype python vnoremap <c-]> :PythonSearchContext<CR>
     autocmd Filetype python nnoremap <c-\>s :PythonSearch -x references<CR>
@@ -219,7 +239,7 @@ map <C-a><C-a> :b#<CR>
 map <C-z> <ESC>:call CloseTab()<CR>
 
 "Json formatter
-map <Leader>j !python -m json.tool<CR>
+map <leader>b !python -m json.tool<CR>
 
 map q: :q
 
@@ -282,11 +302,13 @@ let g:NERDTreeWinPos = "right"
 "let g:snips_trigger_key='<c-s-tab>'
 "let g:snips_trigger_key_backwards = '<S-d>'
 
-" vim-flake8
-let g:flake8_ignore="E501,W293"
-let g:flake8_builtins="_,apply"
-let g:flake8_max_line_length=119
-let g:flake8_max_complexity=10
+"
+"
+"vim-flake8
+" let g:flake8_ignore="E501,W293"
+" let g:flake8_builtins="_,apply"
+" let g:flake8_max_line_length=119
+" let g:flake8_max_complexity=10
 
 func! CloseTab()
 	let s:buf_nr = bufnr("%")
@@ -321,11 +343,11 @@ vmap <C-v> <Plug>(expand_region_shrink)
 let g:pydiction_location = '/Users/easonlee/.vim/bundle/Pydiction/complete-dict'
 
 " YouCimpleteMe
-let g:ycm_global_ycm_extra_conf='/Users/easonlee/.vim/bundle//YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='/Users/easonlee/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " vim-instant-markdown
 let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 1
+let g:instant_markdown_autostart = 0
 
 " The Silver Searcher
 if executable('ag')
@@ -337,3 +359,8 @@ if executable('ag')
     " bind \" to grep word under cursor
     " nnoremap " :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 endif
+
+let g:reveal_root_path='/Users/easonlee/github/reveal.js'
+
+nnoremap <F5> "=strftime("%FT%T%z")<CR>P
+inoremap <F5> <C-R>=strftime("%FT%T%z")<CR>")"
